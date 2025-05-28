@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Picrovave Microwave Oven</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --blue: #3a7cb9;
+      --blue-dark: #2a5c8d;
+      --red: #e74c3c;
+      --white: #fff;
+      --gray: #666;
+      --light-gray: #f8f9fa;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', sans-serif; background: var(--light-gray); color: #333; }
+    .container { max-width: 1100px; margin: 40px auto; background: var(--white); border-radius: 8px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
+    .header {
+      background: var(--blue);
+      color: var(--white);
+      padding: 30px;
+      text-align: center;
+    }
+    .header h1 { font-size: 2.5rem; margin-bottom: 5px; }
+    .header p { font-size: 1.1rem; opacity: 0.9; }
+    .price-rating {
+      margin-top: 15px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+    }
+    .price {
+      background: var(--red);
+      padding: 8px 20px;
+      border-radius: 50px;
+      font-size: 1.4rem;
+      font-weight: bold;
+      color: var(--white);
+    }
+    .stars { display: flex; align-items: center; gap: 3px; }
+    .stars i { color: gold; }
+    .stars span { margin-left: 5px; font-size: 0.9rem; color: var(--white); }
+    .content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      padding: 40px;
+    }
+    .images {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .images .main-img, .images .thumb {
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      background: var(--white);
+    }
+    .images .main-img img { width: 100%; display: block; }
+    .images .thumb { width: 120px; cursor: pointer; border: 2px solid transparent; transition: all 0.3s; }
+    .images .thumb:hover { transform: scale(1.05); border-color: var(--blue-dark); }
+    .images .thumb img { width: 100%; display: block; }
+    .details {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+    .description h2 {
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+      color: var(--blue-dark);
+    }
+    .description p { line-height: 1.6; color: var(--gray); }
+    .features-list h2 {
+      font-size: 1.8rem;
+      margin-bottom: 15px;
+      color: var(--blue-dark);
+    }
+    .features-list ul { list-style: none; display: grid; grid-template-columns: 1fr; gap: 15px; }
+    .features-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      background: var(--light-gray);
+      padding: 12px;
+      border-radius: 6px;
+    }
+    .features-list i { font-size: 1.4rem; color: var(--blue-dark); margin-top: 2px; }
+    .features-list h3 { font-size: 1.1rem; margin-bottom: 4px; }
+    .btn-buy {
+      display: inline-block;
+      background: var(--blue);
+      color: var(--white);
+      padding: 12px 30px;
+      border-radius: 50px;
+      font-size: 1rem;
+      font-weight: bold;
+      text-decoration: none;
+      text-align: center;
+      width: max-content;
+      transition: all 0.3s;
+    }
+    .btn-buy i { margin-right: 8px; }
+    .btn-buy:hover { background: var(--blue-dark); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
+    @media (max-width: 860px) {
+      .content { grid-template-columns: 1fr; }
+      .images { align-items: center; }
+      .images .thumb { width: 80px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Picrovave Microwave Oven</h1>
+      <p>Efficient Cooking | Sleek Design | Smart Features</p>
+      <div class="price-rating">
+        <div class="price">$249.99</div>
+        <div class="stars">
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star-half-alt"></i>
+          <span>4.8 (235 reviews)</span>
+        </div>
+      </div>
+    </div>
+    <div class="content">
+      <div class="images">
+        <div class="main-img"><img src="picrovave_main.jpg" alt="Picrovave Main View"></div>
+        <div class="thumb"><img src="picrovave_thumb.jpg" alt="Picrovave Side View"></div>
+      </div>
+      <div class="details">
+        <div class="description">
+          <h2>Product Description</h2>
+          <p>The Picrovave microwave offers 10 power levels, a spacious 25L interior, and sensor cook technology for perfect results every time. Its sleek black finish complements any kitchen, while the intuitive digital control panel makes operation effortless.</p>
+        </div>
+        <div class="features-list">
+          <h2>Key Features</h2>
+          <ul>
+            <li><i class="fas fa-bolt"></i><div><h3>Fast Heating</h3><p>Rapid meal prep with advanced microwave coils.</p></div></li>
+            <li><i class="fas fa-snowflake"></i><div><h3>Defrost Mode</h3><p>Gentle thawing keeps food texture intact.</p></div></li>
+            <li><i class="fas fa-stopwatch"></i><div><h3>Timer Function</h3><p>Set precise cook times with auto shut-off.</p></div></li>
+            <li><i class="fas fa-plug"></i><div><h3>Energy Efficient</h3><p>Consumes less power for eco-friendly use.</p></div></li>
+          </ul>
+        </div>
+        <a href="addtocart.html" class="btn-buy"><i class="fas fa-shopping-cart"></i>Buy Now</a>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.querySelector('.thumb').addEventListener('click', () => {
+      const mainImg = document.querySelector('.main-img img');
+      mainImg.src = document.querySelector('.thumb img').src;
+    });
+  </script>
+</body>
+</html>

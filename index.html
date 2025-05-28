@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Smart Electronics - Home Appliances</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="smart.ico">
+    <style>
+        /* Banner Slider Styles */
+        .banner-slider {
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+            margin-bottom: 30px;
+        }
+        .slider-container {
+            display: flex;
+            transition: transform 0.5s ease;
+            height: auto;
+        }
+        .slider-item {
+            min-width: 100%;
+            box-sizing: border-box;
+        }
+        .slider-item img {
+            width: 100%;
+            height: auto;
+        }
+        .slider-item video {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .slider-nav {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            z-index: 10;
+        }
+        .slider-nav button {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: none;
+            margin: 0 5px;
+            background: rgba(255,255,255,0.5);
+            cursor: pointer;
+        }
+        .slider-nav button.active {
+            background: white;
+        }
+        .slider-arrows {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+            z-index: 10;
+        }
+        .slider-arrows button {
+            background: rgba(0,0,0,0.5);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            margin: 0 15px;
+        }
+
+        /* Box style */
+        .box {
+            width: 100%;
+            height: auto;
+            color: rgba(255, 255, 255, 0.377);
+            font-size: 25px;
+            text-align: center;
+            margin: 5px;
+            padding: 5px;
+            background-color: #fdf8ec;
+            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+            transition: transform 0.5s ease, box-shadow 0.5s ease, background-color 0.5s ease;
+            border: 5px solid transparent;
+        }
+        .box:hover {
+            transform: scale(1.03);
+            background-color: rgb(0, 0, 0);
+            box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.4);
+            color: white;
+        }
+        .box img {
+            width: 100%;
+            height: auto;
+            max-height: 100%;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+        .product-name {
+            margin-top: 10px;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        /* WhatsApp button styles */
+        .whatsapp-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #25D366;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            text-align: center;
+            font-size: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        .whatsapp-button:hover {
+            background-color: #128C7E;
+            transform: scale(1.1);
+        }
+
+        /* Auto-scrolling Carousel Styles */
+        .auto-scroll-carousel {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            overflow: hidden;
+            position: relative;
+        }
+        .auto-scroll-track {
+            display: flex;
+            gap: 20px;
+            padding: 20px 0;
+            width: max-content;
+            animation: scroll 30s linear infinite;
+        }
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .auto-scroll-track:hover {
+            animation-play-state: paused;
+        }
+        .auto-scroll-card {
+            flex: 0 0 300px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+        .auto-scroll-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        .auto-scroll-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .auto-scroll-info {
+            padding: 15px;
+        }
+        .auto-scroll-name {
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+            color: #222;
+        }
+        .auto-scroll-price {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #e63946;
+            margin-bottom: 10px;
+        }
+        .auto-scroll-rating {
+            color: #f4a261;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        .auto-scroll-features {
+            font-size: 0.9rem;
+            color: #555;
+            line-height: 1.4;
+            margin-bottom: 15px;
+        }
+
+        /* Grid style for additional products */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+        .product {
+            background-color: white;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.2s;
+        }
+        .product:hover {
+            transform: translateY(-5px);
+        }
+        .product img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        .product h2 {
+            font-size: 16px;
+            margin: 10px 0;
+        }
+        .price {
+            font-weight: bold;
+            color: #007BFF;
+        }
+
+        /* Order Tracking Styles */
+        .order-container {
+            max-width: 100%;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+        }
+        .order-icon {
+            font-size: 60px;
+            color: #4CAF50;
+            margin-bottom: 20px;
+        }
+        .order-count {
+            font-size: 48px;
+            font-weight: bold;
+            color: #4CAF50;
+            margin: 20px 0;
+        }
+        .order-details {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 30px;
+            text-align: left;
+        }
+        .order-details h2 {
+            color: #555;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .order-item:last-child {
+            border-bottom: none;
+        }
+        .order-label {
+            color: #777;
+        }
+        .order-value {
+            font-weight: bold;
+            color: #333;
+        }
+        .status-pending {
+            color: #FF9800;
+        }
+        .status-delivered {
+            color: #4CAF50;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .box, .product {
+                transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+            }
+            .box:hover, .product:hover {
+                transform: scale(1.02);
+            }
+            .product-name, .product h2 {
+                font-size: 18px;
+            }
+            .whatsapp-button {
+                width: 50px;
+                height: 50px;
+                font-size: 25px;
+            }
+            .auto-scroll-card {
+                flex: 0 0 250px;
+            }
+        }
+        @media (max-width: 576px) {
+            .box, .product {
+                margin: 3px;
+                padding: 3px;
+                transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+            }
+            .box:hover, .product:hover {
+                transform: scale(1.01);
+            }
+            .product-name, .product h2 {
+                font-size: 16px;
+            }
+        }
+        body {
+            background-color: #0F172A;
+        }
+        .section-heading {
+            color: white;
+            text-align: center;
+            margin: 40px 0 20px;
+            font-size: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar bg-dark navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">Smart Electronics</a>
+            <div>
+                <a class="text-white mx-2 text-decoration-none" href="index.html">Home</a>
+                <a class="text-white mx-2 text-decoration-none" href="p3.html">Services</a>
+                <a class="text-white mx-2 text-decoration-none" href="p2.html">About</a>
+                <a class="text-white mx-2 text-decoration-none" href="p4.htm">Contact</a>
+                <button id="orderTrackingBtn" class="btn btn-outline-light mx-2">
+                    <i class="fas fa-shopping-cart"></i> My Orders
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Banner Slider -->
+    <div class="banner-slider">
+        <div class="slider-container" id="slider">
+            <div class="slider-item">
+                <iframe src='http://127.0.0.1:5500/p1.html' frameborder='0' width='100%' height='500px'></iframe>
+            </div>
+        </div>
+        <div class="slider-arrows">
+            <button id="prevBtn">❮</button>
+            <button id="nextBtn">❯</button>
+        </div>
+        <div class="slider-nav">
+            <button class="active" data-index="0"></button>
+            <button data-index="1"></button>
+        </div>
+    </div>
+
+    <!-- Auto-scrolling Product Carousel -->
+    <h2 class="section-heading">Featured Products</h2>
+    <div class="auto-scroll-carousel">
+        <div class="auto-scroll-track">
+            <div class="auto-scroll-card">
+                <img src="https://images.unsplash.com/photo-1571175443880-49e1d25b2bc5?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Smart Refrigerator" class="auto-scroll-image">
+                <div class="auto-scroll-info">
+                    <h3 class="auto-scroll-name">Smart Refrigerator</h3>
+                    <div class="auto-scroll-price">$1,299</div>
+                    <div class="auto-scroll-rating">★★★★☆</div>
+                    <p class="auto-scroll-features">25 cu.ft, Wi-Fi Enabled, Smart Cooling System, Ice Maker, Energy Star Certified</p>
+                </div>
+            </div>
+            <div class="auto-scroll-card">
+                <img src="vjc.jpeg" alt="Air Fryer Oven" class="auto-scroll-image">
+                <div class="auto-scroll-info">
+                    <h3 class="auto-scroll-name">Air Fryer Oven</h3>
+                    <div class="auto-scroll-price">$149</div>
+                    <div class="auto-scroll-rating">★★★★★</div>
+                    <p class="auto-scroll-features">10-in-1 functionality, 12.7 Qt capacity, Digital Touchscreen, 1800W, 50% less fat cooking</p>
+                </div>
+            </div>
+            <div class="auto-scroll-card">
+                <img src="R (1).jpeg" alt="Robot Vacuum" class="auto-scroll-image">
+                <div class="auto-scroll-info">
+                    <h3 class="auto-scroll-name">Robot Vacuum</h3>
+                    <div class="auto-scroll-price">$349</div>
+                    <div class="auto-scroll-rating">★★★★☆</div>
+                    <p class="auto-scroll-features">Laser Navigation, 150 mins runtime, App Control, Works with Alexa, Self-Charging</p>
+                </div>
+            </div>
+            <div class="auto-scroll-card">
+                <img src="b.jpeg" alt="Blender Pro" class="auto-scroll-image">
+                <div class="auto-scroll-info">
+                    <h3 class="auto-scroll-name">Blender Pro</h3>
+                    <div class="auto-scroll-price">$89</div>
+                    <div class="auto-scroll-rating">★★★★☆</div>
+                    <p class="auto-scroll-features">1500W Motor, 6 Blades, 64oz BPA-Free Jar, 8 Speed Settings, Pulse Function</p>
+                </div>
+            </div>
+            <div class="auto-scroll-card">
+                <img src="co.jpeg" alt="Coffee Maker" class="auto-scroll-image">
+                <div class="auto-scroll-info">
+                    <h3 class="auto-scroll-name">Coffee Maker</h3>
+                    <div class="auto-scroll-price">$199</div>
+                    <div class="auto-scroll-rating">★★★★★</div>
+                    <p class="auto-scroll-features">12-Cup Programmable, Built-in Grinder, Stainless Steel, Thermal Carafe, Strength Control</p>
+                </div>
+            </div>
+            <div class="auto-scroll-card">
+                <img src="C:\Users\Admin\OneDrive\Desktop\smart electronic/11-microwave-1600.jpg" alt="Microwave Oven" class="auto-scroll-image">
+                <div class="auto-scroll-info">
+                    <h3 class="auto-scroll-name">Microwave Oven</h3>
+                    <div class="auto-scroll-price">$179</div>
+                    <div class="auto-scroll-rating">★★★★☆</div>
+                    <p class="auto-scroll-features">1.2 cu.ft, Sensor Cooking, 10 Power Levels, Defrost Function, Child Safety Lock</p>
+                </div>
+            </div>
+            <div class="auto-scroll-card">
+                <img src="food.jpeg" alt="Food Processor" class="auto-scroll-image">
+                <div class="auto-scroll-info">
+                    <h3 class="auto-scroll-name">Food Processor</h3>
+                    <div class="auto-scroll-price">$129</div>
+                    <div class="auto-scroll-rating">★★★☆☆</div>
+                    <p class="auto-scroll-features">10-Cup Capacity, 4 Blades, Dough Blade, Variable Speed Control, Easy Clean</p>
+                </div>
+            </div>
+            <div class="auto-scroll-card">
+                <img src="stand.jpeg" alt="Stand Mixer" class="auto-scroll-image">
+                <div class="auto-scroll-info">
+                    <h3 class="auto-scroll-name">Stand Mixer</h3>
+                    <div class="auto-scroll-price">$299</div>
+                    <div class="auto-scroll-rating">★★★★★</div>
+                    <p class="auto-scroll-features">5.5 Qt Bowl, 10 Speed Settings, Tilt-Head, Includes 3 Attachments, 500W Motor</p>
+                </div>
+            </div>
+            <!-- Duplicate products for seamless looping -->
+            <div class="auto-scroll-card">
+                <img src="https://images.unsplash.com/photo-1571175443880-49e1d25b2bc5?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Smart Refrigerator" class="auto-scroll-image">
+                <div class="auto-scroll-info">
+                    <h3 class="auto-scroll-name">Smart Refrigerator</h3>
+                    <div class="auto-scroll-price">$1,299</div>
+                    <div class="auto-scroll-rating">★★★★☆</div>
+                    <p class="auto-scroll-features">25 cu.ft, Wi-Fi Enabled, Smart Cooling System, Ice Maker, Energy Star Certified</p>
+                </div>
+            </div>
+            <div class="auto-scroll-card">
+                <img src="vjc.jpeg" alt="Air Fryer Oven" class="auto-scroll-image">
+                <div class="auto-scroll-info">
+                    <h3 class="auto-scroll-name">Air Fryer Oven</h3>
+                    <div class="auto-scroll-price">$149</div>
+                    <div class="auto-scroll-rating">★★★★★</div>
+                    <p class="auto-scroll-features">10-in-1 functionality, 12.7 Qt capacity, Digital Touchscreen, 1800W, 50% less fat cooking</p>
+                </div>
+            </div>
+            <div class="auto-scroll-card">
+                <img src="R (1).jpeg" alt="Robot Vacuum" class="auto-scroll-image">
+                <div class="auto-scroll-info">
+                    <h3 class="auto-scroll-name">Robot Vacuum</h3>
+                    <div class="auto-scroll-price">$349</div>
+                    <div class="auto-scroll-rating">★★★★☆</div>
+                    <p class="auto-scroll-features">Laser Navigation, 150 mins runtime, App Control, Works with Alexa, Self-Charging</p>
+                </div>
+            </div>
+            <div class="auto-scroll-card">
+                <img src="b.jpeg" alt="Blender Pro" class="auto-scroll-image">
+                <div class="auto-scroll-info">
+                    <h3 class="auto-scroll-name">Blender Pro</h3>
+                    <div class="auto-scroll-price">$89</div>
+                    <div class="auto-scroll-rating">★★★★☆</div>
+                    <p class="auto-scroll-features">1500W Motor, 6 Blades, 64oz BPA-Free Jar, 8 Speed Settings, Pulse Function</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Product Grid (First HTML) -->
+    <h2 class="section-heading">Popular Appliances</h2>
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-3 col-sm-6">
+                <div class="box">
+                    <a href="p14.html"><img src="k.jpg" alt="Kitchen Appliances"></a>
+                    <div class="product-name">Kitchen Appliances</div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="box">
+                    <a href="product2.html"><img src="ac.jpg" alt="Air Conditioner"></a>
+                    <div class="product-name">Air Conditioner</div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="box">
+                    <a href=""><img src="r.jpg" alt="Refrigerator"></a>
+                    <div class="product-name">Refrigerator</div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="box">
+                    <a href="product4.html"><img src="tv.jpg" alt="TV"></a>
+                    <div class="product-name">TV</div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="box">
+                    <a href="product5.html"><img src="w.jpg" alt="Washing Machine"></a>
+                    <div class="product-name">Washing Machine</div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="box">
+                    <a href="product6.html"><img src="g (1).jpg" alt="Speakers"></a>
+                    <div class="product-name">Speakers</div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="box">
+                    <a href="product7.html"><img src="ai.jpg" alt="Air Cooler"></a>
+                    <div class="product-name">Air Cooler</div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="box">
+                    <a href="product8.html"><img src="d.jpg" alt="Dispenser"></a>
+                    <div class="product-name">Dispenser</div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="box">
+                    <a href="product9.html"><img src="h.jpg" alt="Heater"></a>
+                    <div class="product-name">Heater</div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="box">
+                    <a href="product10.html"><img src="g.jpg" alt="Geyser"></a>
+                    <div class="product-name">Geyser</div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="box">
+                    <a href="product11.html"><img src="g (2).jpg" alt="Electric Stove"></a>
+                    <div class="product-name">Electric Stove</div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="box">
+                    <a href="product12.html"><img src="s.jpg" alt="Scooter"></a>
+                    <div class="product-name">Scooter</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Additional Product Grid (Second HTML) -->
+    <h2 class="section-heading">Best Seller Appliances</h2>
+    <div class="container mt-4">
+        <div class="product-grid">
+            <div class="product">
+                <a href="microvave.html">
+                    <img src="11-microwave-1600.jpg" alt="Microwave Oven">
+                    <h2>Microwave Oven</h2>
+                    <p class="price">$120</p>
+                </a>
+            </div>
+            <div class="product">
+                <a href="fridge.html">
+                    <img src="Untitled design (7).jpg" alt="Refrigerator">
+                    <h2>Refrigerator</h2>
+                    <p class="price">$5,000</p>
+                </a>
+            </div>
+            <div class="product">
+                <a href="/product/air-conditioner">
+                    <img src="as.jpeg" alt="Air Conditioner">
+                    <h2>Air Conditioner</h2>
+                    <p class="price">$650</p>
+                </a>
+            </div>
+            <div class="product">
+                <a href="ws.html">
+                    <img src="wah.jpeg" alt="Washing Machine">
+                    <h2>Washing Machine</h2>
+                    <p class="price">$2,000</p>
+                </a>
+            </div>
+            <div class="product">
+                <a href="/product/electric-kettle">
+                    <img src="Kettle.jpeg" alt="Electric Kettle">
+                    <h2>Electric Kettle</h2>
+                    <p class="price">$30</p>
+                </a>
+            </div>
+            <div class="product">
+                <a href="/product/toaster">
+                    <img src="Toaster.jpeg" alt="Toaster">
+                    <h2>Toaster</h2>
+                    <p class="price">$250</p>
+                </a>
+            </div>
+            <div class="product">
+                <a href="/product/vacuum-cleaner">
+                    <img src="Vacuum Cleaner.jpeg" alt="Vacuum Cleaner">
+                    <h2>Vacuum Cleaner</h2>
+                    <p class="price">$150</p>
+                </a>
+            </div>
+            <div class="product">
+                <a href="/product/hair-dryer">
+                    <img src="Hair Dryer.jpeg" alt="Hair Dryer">
+                    <h2>Hair Dryer</h2>
+                    <p class="price">$40</p>
+                </a>
+            </div>
+            <div class="product">
+                <a href="/product/iron">
+                    <img src="Iron.jpeg" alt="Iron">
+                    <h2>Iron</h2>
+                    <p class="price">$35</p>
+                </a>
+            </div>
+            <div class="product">
+                <a href="/product/blender">
+                    <img src="Blender.jpeg" alt="Blender">
+                    <h2>Blender</h2>
+                    <p class="price">$50</p>
+                </a>
+            </div>
+            <div class="product">
+                <a href="/product/food-processor">
+                    <img src="Food Processor.jpeg" alt="Food Processor">
+                    <h2>Food Processor</h2>
+                    <p class="price">$90</p>
+                </a>
+            </div>
+            <div class="product">
+                <a href="/product/dishwasher">
+                    <img src="Dishwasher.jpeg" alt="Dishwasher">
+                    <h2>Dishwasher</h2>
+                    <p class="price">$450</p>
+                </a>
+            </div>
+            <div class="product">
+                <a href="/product/coffee-maker">
+                    <img src="co.jpeg" alt="Coffee Maker">
+                    <h2>Coffee Maker</h2>
+                    <p class="price">$70</p>
+                </a>
+            </div>
+            <div class="product">
+                <a href="/product/ceiling-fan">
+                    <img src="Ceiling Fan.jpeg" alt="Ceiling Fan">
+                    <h2>Ceiling Fan</h2>
+                    <p class="price">$60</p>
+                </a>
+            </div>
+            <div class="product">
+                <a href="/product/heater">
+                    <img src="Heater.jpeg" alt="Personal Heater">
+                    <h2>Personal Heater</h2>
+                    <p class="price">$55</p>
+                </a>
+            </div>
+            <div class="product">
+                <a href="/product/induction-cooker">
+                    <img src="Induction Cooker.jpeg" alt="Induction Cooker">
+                    <h2>Induction Cooker</h2>
+                    <p class="price">$80</p>
+                </a>
+            </div>
+            <div class="product">
+                <a href="/product/rice-cooker">
+                    <img src="Rice Cooker.jpeg" alt="Rice Cooker">
+                    <h2>Rice Cooker</h2>
+                    <p class="price">$45</p>
+                </a>
+            </div>
+            <div class="product">
+                <a href="/product/juicer">
+                    <img src="juser.jpeg" alt="Juicer">
+                    <h2>Juicer</h2>
+                    <p class="price">$65</p>
+                </a>
+            </div>
+            <div class="product">
+                <a href="/product/deep-freezer">
+                    <img src="Deep Freezer.jpeg" alt="Deep Freezer">
+                    <h2>Deep Freezer</h2>
+                    <p class="price">$480</p>
+                </a>
+            </div>
+            <div class="product">
+                <a href="/product/scooter">
+                    <img src="s.jpg" alt="Scooter">
+                    <h2>Scooter</h2>
+                    <p class="price">$75</p>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Order Tracking Modal -->
+    <div class="modal fade" id="orderTrackingModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Your Order Summary</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="order-container">
+                        <div class="order-icon">🛒</div>
+                        <h1>Your Order Summary</h1>
+                        <div class="order-count">5</div>
+                        <p>Total Orders Placed</p>
+                        <div class="order-details">
+                            <h2>Recent Orders</h2>
+                            <div class="order-item">
+                                <span class="order-label">Order #1001</span>
+                                <span class="order-value status-delivered">Delivered</span>
+                            </div>
+                            <div class="order-item">
+                                <span class="order-label">Order #1002</span>
+                                <span class="order-value status-delivered">Delivered</span>
+                            </div>
+                            <div class="order-item">
+                                <span class="order-label">Order #1003</span>
+                                <span class="order-value status-pending">Pending</span>
+                            </div>
+                            <div class="order-item">
+                                <span class="order-label">Total Spent</span>
+                                <span class="order-value">$247.99</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- WhatsApp Button -->
+    <a href="https://wa.me/923000444168" class="whatsapp-button" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+    <script>
+        // Main slider functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const slider = document.getElementById('slider');
+            const slides = document.querySelectorAll('.slider-item');
+            const navButtons = document.querySelectorAll('.slider-nav button');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            let currentIndex = 0;
+            const slideCount = slides.length;
+            let slideInterval;
+
+            function initSlider() {
+                updateSlider();
+                startAutoSlide();
+            }
+
+            function startAutoSlide() {
+                clearInterval(slideInterval);
+                slideInterval = setInterval(() => {
+                    nextSlide();
+                }, 5000);
+            }
+
+            function updateSlider() {
+                slider.style.transform = `translateX(-${currentIndex * 100}%)`;
+                navButtons.forEach((btn, index) => {
+                    btn.classList.toggle('active', index === currentIndex);
+                });
+                startAutoSlide();
+            }
+
+            function nextSlide() {
+                currentIndex = (currentIndex + 1) % slideCount;
+                updateSlider();
+            }
+
+            function prevSlide() {
+                currentIndex = (currentIndex - 1 + slideCount) % slideCount;
+                updateSlider();
+            }
+
+            nextBtn.addEventListener('click', nextSlide);
+            prevBtn.addEventListener('click', prevSlide);
+            navButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    currentIndex = parseInt(this.getAttribute('data-index'));
+                    updateSlider();
+                });
+            });
+
+            initSlider();
+        });
+
+        // Order Tracking Button Functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const orderTrackingBtn = document.getElementById('orderTrackingBtn');
+            const orderModal = new bootstrap.Modal(document.getElementById('orderTrackingModal'));
+            orderTrackingBtn.addEventListener('click', function() {
+                orderModal.show();
+            });
+        });
+    </script>
+</body>
+</html>

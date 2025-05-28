@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Order Form</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
+    <style>
+        :root {
+            --primary: #3a86ff;
+            --primary-hover: #2667cc;
+            --secondary: #8338ec;
+            --accent: #ff006e;
+            --dark: #1a1a2e;
+            --darker: #0d0d1a;
+            --light: #f8f9fa;
+            --lighter: #ffffff;
+            --border: #e2e8f0;
+            --success: #06d6a0;
+            --warning: #ffbe0b;
+            --error: #ef476f;
+            --radius-lg: 16px;
+            --radius-md: 12px;
+            --radius-sm: 8px;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 50px rgba(0, 0, 0, 0.2);
+            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            --text-primary: var(--dark);
+            --text-secondary: #4a5568;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #f6f9fc 0%, #eef2f6 100%);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 2rem;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .container {
+            max-width: 640px;
+            margin: 0 auto;
+            animation: fadeInUp 0.6s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card {
+            background: var(--lighter);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-xl);
+            overflow: hidden;
+            transition: var(--transition);
+            position: relative;
+            z-index: 1;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            z-index: 2;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-xl), 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .header {
+            padding: 2.5rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border), transparent);
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
+        }
+
+        .header p {
+            color: var(--text-secondary);
+            font-weight: 400;
+            max-width: 80%;
+            margin: 0 auto;
+        }
+
+        .form-container {
+            padding: 2rem;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .form-group.full-width {
+            grid-column: span 2;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+
+        .input-container {
+            position: relative;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 1rem 1.25rem;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            font-size: 1rem;
+            transition: var(--transition);
+            background-color: var(--light);
+            color: var(--text-primary);
+            font-family: inherit;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            border-color: var(--primary);
+            outline: none;
+            background-color: var(--lighter);
+            box-shadow: 0 0 0 3px rgba(58, 134, 255, 0.2);
+        }
+
+        textarea {
+            min-height: 140px;
+            resize: vertical;
+            line-height: 1.5;
+        }
+
+        select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%234a5568' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 12px;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 1.125rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            width: 100%;
+            transition: var(--transition);
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary-hover), var(--secondary));
+            opacity: 0;
+            z-index: -1;
+            transition: var(--transition);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn:hover::before {
+            opacity: 1;
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .form-footer {
+            margin-top: 2rem;
+            text-align: center;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .form-footer a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        /* Validation styles */
+        .error-message {
+            color: var(--error);
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+            display: none;
+            animation: shake 0.3s;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-4px); }
+            40%, 80% { transform: translateX(4px); }
+        }
+
+        .invalid {
+            border-color: var(--error) !important;
+        }
+
+        .invalid:focus {
+            box-shadow: 0 0 0 3px rgba(239, 71, 111, 0.2) !important;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            body {
+                padding: 1.5rem;
+            }
+            
+            .form-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .form-group.full-width {
+                grid-column: span 1;
+            }
+            
+            .header {
+                padding: 2rem 1.5rem;
+            }
+            
+            .header h1 {
+                font-size: 1.75rem;
+            }
+            
+            .form-container {
+                padding: 1.5rem;
+            }
+        }
+
+        /* Loading state */
+        .btn.loading {
+            pointer-events: none;
+        }
+
+        .btn.loading::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            margin: -10px 0 0 -10px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Success state */
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .success-message svg {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 1.5rem;
+            color: var(--success);
+        }
+
+        .success-message h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--success);
+        }
+
+        .success-message p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="header">
+                <h1>Place Your Order</h1>
+                <p>Complete this form and our team will prepare your order</p>
+            </div>
+            
+            <div class="form-container">
+                <form id="orderForm">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <div class="input-container">
+                                <input type="text" id="name" name="name" required>
+                            </div>
+                            <div class="error-message">Please enter your full name</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <div class="input-container">
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                            <div class="error-message">Please enter a valid email</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <div class="input-container">
+                                <input type="tel" id="phone" name="phone" required>
+                            </div>
+                            <div class="error-message">Please enter your phone number</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="quantity">Quantity</label>
+                            <div class="input-container">
+                                <input type="number" id="quantity" name="quantity" min="1" value="1" required>
+                            </div>
+                            <div class="error-message">Please enter a valid quantity</div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="product">Product Details</label>
+                        <div class="input-container">
+                            <input type="text" id="product" name="product" required>
+                        </div>
+                        <div class="error-message">Please describe what you're ordering</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="address">Shipping Address</label>
+                        <div class="input-container">
+                            <textarea id="address" name="address" required></textarea>
+                        </div>
+                        <div class="error-message">Please enter your shipping address</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="notes">Special Instructions (Optional)</label>
+                        <div class="input-container">
+                            <textarea id="notes" name="notes"></textarea>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn">
+                        <span class="btn-text">Place Order</span>
+                    </button>
+                    
+                    <div class="form-footer">
+                        By submitting this form, you agree to our <a href="#">terms of service</a>
+                    </div>
+                </form>
+                
+                <div class="success-message">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                    <h2>Order Confirmed!</h2>
+                    <p>Your order has been successfully placed. We'll contact you shortly with confirmation details.</p>
+                    <button class="btn" id="newOrderBtn">Place Another Order</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("orderForm").addEventListener("submit", function(e) {
+            e.preventDefault();
+            
+            const form = e.target;
+            const inputs = form.querySelectorAll('input[required], textarea[required]');
+            let isValid = true;
+            
+            // Validate form
+            inputs.forEach(input => {
+                if (!input.value.trim()) {
+                    input.classList.add('invalid');
+                    input.nextElementSibling.nextElementSibling.style.display = 'block';
+                    isValid = false;
+                } else {
+                    input.classList.remove('invalid');
+                    input.nextElementSibling.nextElementSibling.style.display = 'none';
+                }
+            });
+            
+            if (isValid) {
+                const btn = form.querySelector('button[type="submit"]');
+                const btnText = btn.querySelector('.btn-text');
+                
+                // Show loading state
+                btn.classList.add('loading');
+                btnText.textContent = 'Processing...';
+                
+                // Simulate API call
+                setTimeout(() => {
+                    // Hide form and show success message
+                    form.style.display = 'none';
+                    document.querySelector('.success-message').style.display = 'block';
+                    
+                    // Reset button
+                    btn.classList.remove('loading');
+                    btnText.textContent = 'Place Order';
+                }, 2000);
+            }
+        });
+        
+        // Reset form for new order
+        document.getElementById('newOrderBtn').addEventListener('click', function() {
+            document.getElementById('orderForm').reset();
+            document.getElementById('orderForm').style.display = 'block';
+            document.querySelector('.success-message').style.display = 'none';
+            
+            // Clear any invalid states
+            document.querySelectorAll('.invalid').forEach(el => {
+                el.classList.remove('invalid');
+            });
+            document.querySelectorAll('.error-message').forEach(el => {
+                el.style.display = 'none';
+            });
+        });
+        
+        // Real-time validation
+        document.querySelectorAll('input[required], textarea[required]').forEach(input => {
+            input.addEventListener('input', function() {
+                if (this.value.trim()) {
+                    this.classList.remove('invalid');
+                    this.nextElementSibling.nextElementSibling.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
