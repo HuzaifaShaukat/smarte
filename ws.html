@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Washing Machine - SmartClean Pro X5</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-light: #3b82f6;
+      --secondary: #ea580c;
+      --dark: #1e293b;
+      --light: #f8fafc;
+      --success: #16a34a;
+      --border: #e2e8f0;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background-color: #f1f5f9;
+      color: #334155;
+      line-height: 1.6;
+    }
+
+    .product-container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 2rem;
+      padding: 0 1rem;
+    }
+
+    .gallery {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .main-image img,
+    .thumbnail img {
+      width: 100%;
+      border-radius: 0.75rem;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    }
+
+    .product-info {
+      position: sticky;
+      top: 2rem;
+    }
+
+    .badge {
+      background: var(--secondary);
+      color: white;
+      padding: 0.4rem 1rem;
+      border-radius: 999px;
+      font-weight: bold;
+      font-size: 0.9rem;
+      display: inline-block;
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      font-size: 2rem;
+      color: var(--dark);
+      margin-bottom: 0.5rem;
+    }
+
+    .subtitle {
+      color: #64748b;
+      margin-bottom: 1.5rem;
+    }
+
+    .price {
+      font-size: 2rem;
+      color: var(--dark);
+      margin: 1rem 0;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+
+    .feature-item {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .feature-icon {
+      width: 2.5rem;
+      height: 2.5rem;
+      background: #e0f2fe;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: var(--primary);
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .btn {
+      padding: 1rem;
+      border-radius: 0.75rem;
+      font-weight: bold;
+      cursor: pointer;
+      border: none;
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-outline {
+      background: white;
+      border: 1px solid var(--primary);
+      color: var(--primary);
+    }
+
+    .tabs {
+      background: white;
+      border-radius: 1rem;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+      margin: 3rem auto;
+      max-width: 1000px;
+      padding: 1rem;
+    }
+
+    .tab-header {
+      display: flex;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .tab-btn {
+      flex: 1;
+      text-align: center;
+      padding: 1rem;
+      cursor: pointer;
+      font-weight: bold;
+      border-bottom: 3px solid transparent;
+    }
+
+    .tab-btn.active {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+    }
+
+    .tab-content {
+      padding: 2rem 1rem;
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    .specs-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .specs-table tr:nth-child(even) {
+      background: #f8fafc;
+    }
+
+    .specs-table td {
+      padding: 0.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .specs-table td:first-child {
+      font-weight: bold;
+      width: 40%;
+    }
+
+    @media (max-width: 768px) {
+      .product-container {
+        grid-template-columns: 1fr;
+      }
+
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .cta-buttons {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="product-container">
+  <!-- Image Section -->
+  <section class="gallery">
+    <div class="main-image">
+      <img src="w.jpg" alt="SmartClean Pro X5 Washing Machine">
+    </div>
+    <div class="thumbnail">
+      <img src="wah.jpeg" alt="Side view">
+    </div>
+  </section>
+
+  <!-- Product Info -->
+  <section class="product-info">
+    <span class="badge">TOP RATED</span>
+    <h1>SmartClean Pro X5</h1>
+    <p class="subtitle">Fully automatic front load washing machine with smart sensors and energy-efficient design</p>
+
+    <div class="price">$2,000</div>
+
+    <div class="features-grid">
+      <div class="feature-item">
+        <div class="feature-icon"><i class="fas fa-water"></i></div>
+        <div><strong>EcoWash</strong><br><small>Uses 30% less water</small></div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon"><i class="fas fa-bolt"></i></div>
+        <div><strong>Inverter Motor</strong><br><small>Silent & energy saving</small></div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon"><i class="fas fa-tshirt"></i></div>
+        <div><strong>Smart Fabric Sensor</strong><br><small>Adjusts cycle automatically</small></div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon"><i class="fas fa-mobile-alt"></i></div>
+        <div><strong>App Control</strong><br><small>Monitor via smartphone</small></div>
+      </div>
+    </div>
+
+    <div class="cta-buttons">
+      <button class="btn btn-primary"><i class="fas fa-shopping-cart"></i> Buy Now</button>
+      <button class="btn btn-outline"><i class="fas fa-store"></i> Locate Dealer</button>
+    </div>
+  </section>
+</div>
+
+<!-- Tabs Section -->
+<div class="tabs">
+  <div class="tab-header">
+    <div class="tab-btn active" onclick="openTab(event, 'specs')">Specifications</div>
+    <div class="tab-btn" onclick="openTab(event, 'reviews')">Reviews</div>
+  </div>
+
+  <div id="specs" class="tab-content active">
+    <table class="specs-table">
+      <tr><td>Model</td><td>SmartClean Pro X5</td></tr>
+      <tr><td>Type</td><td>Front Load</td></tr>
+      <tr><td>Capacity</td><td>8 kg</td></tr>
+      <tr><td>Motor</td><td>Inverter Direct Drive</td></tr>
+      <tr><td>Energy Rating</td><td>5 Star</td></tr>
+      <tr><td>Spin Speed</td><td>1200 RPM</td></tr>
+      <tr><td>Smart Features</td><td>WiFi, App Control</td></tr>
+      <tr><td>Noise Level</td><td>52 dB</td></tr>
+      <tr><td>Color</td><td>Platinum Silver</td></tr>
+      <tr><td>Warranty</td><td>2 Years (10 Years on Motor)</td></tr>
+    </table>
+  </div>
+
+  <div id="reviews" class="tab-content">
+    <p><strong>⭐⭐⭐⭐⭐</strong> “Excellent washing machine, super quiet and very easy to use!” – Sarah K.</p>
+    <p><strong>⭐⭐⭐⭐</strong> “Smart features are great. Saved a lot on electricity bills.” – Ali M.</p>
+  </div>
+</div>
+
+<script>
+  function openTab(evt, tabName) {
+    const contents = document.querySelectorAll('.tab-content');
+    const buttons = document.querySelectorAll('.tab-btn');
+    contents.forEach(c => c.classList.remove('active'));
+    buttons.forEach(b => b.classList.remove('active'));
+    document.getElementById(tabName).classList.add('active');
+    evt.currentTarget.classList.add('active');
+  }
+</script>
+
+</body>
+</html>

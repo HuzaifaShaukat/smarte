@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ArcticBreeze Pro X | Inverter Split Air Conditioner</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-light: #3b82f6;
+      --secondary: #10b981;
+      --dark: #1e293b;
+      --light: #f8fafc;
+      --success: #16a34a;
+      --border: #e2e8f0;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background-color: #f1f5f9;
+      color: #334155;
+      line-height: 1.6;
+    }
+
+    .product-container {
+      max-width: 1400px;
+      margin: 2rem auto;
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 3rem;
+      padding: 0 2rem;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-areas: "main main" "thumb1 thumb2";
+      gap: 1rem;
+    }
+
+    .main-image {
+      grid-area: main;
+      background: white;
+      border-radius: 1rem;
+      padding: 2rem;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .main-image img {
+      width: 100%;
+      height: auto;
+      max-height: 500px;
+      object-fit: contain;
+    }
+
+    .thumbnail {
+      background: white;
+      border-radius: 0.75rem;
+      padding: 1rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      border: 2px solid transparent;
+    }
+
+    .thumbnail:hover {
+      border-color: var(--primary);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .product-info {
+      position: sticky;
+      top: 2rem;
+      align-self: start;
+    }
+
+    .badge {
+      background: var(--secondary);
+      color: white;
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      display: inline-block;
+    }
+
+    h1 {
+      font-size: 2.25rem;
+      font-weight: 800;
+      color: var(--dark);
+      margin-bottom: 0.5rem;
+      line-height: 1.2;
+    }
+
+    .subtitle {
+      color: #64748b;
+      margin-bottom: 1.5rem;
+      font-size: 1.125rem;
+    }
+
+    .ratings {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .see-all {
+      margin-left: auto;
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .energy-badge {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #f8fafc;
+      padding: 0.75rem;
+      border-radius: 0.5rem;
+      margin: 1rem 0;
+    }
+
+    .energy-rating {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--secondary);
+      background: white;
+      width: 3rem;
+      height: 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 0.5rem;
+      border: 2px solid var(--secondary);
+    }
+
+    .price {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--dark);
+      margin: 1.5rem 0;
+    }
+
+    .price span {
+      font-size: 1.25rem;
+      color: #64748b;
+      text-decoration: line-through;
+      margin-left: 0.5rem;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .feature-icon {
+      width: 2.5rem;
+      height: 2.5rem;
+      background: #e0f2fe;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+
+    .btn {
+      flex: 1;
+      padding: 1rem;
+      border-radius: 0.75rem;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+      border: none;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-light);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3);
+    }
+
+    .btn-outline {
+      background: white;
+      color: var(--primary);
+      border: 1px solid var(--primary);
+    }
+
+    .btn-outline:hover {
+      background: #f8fafc;
+      transform: translateY(-2px);
+    }
+
+    .stock-info {
+      background: #f0fdf4;
+      padding: 1rem;
+      border-radius: 0.75rem;
+      border-left: 4px solid var(--success);
+    }
+
+    .status {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--success);
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+
+    @media (max-width: 1024px) {
+      .product-container {
+        grid-template-columns: 1fr;
+      }
+
+      .gallery {
+        grid-template-areas: "main" "thumb1" "thumb2";
+      }
+    }
+
+    @media (max-width: 768px) {
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .cta-buttons {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="product-container">
+    <!-- Gallery -->
+    <div class="gallery">
+      <div class="main-image">
+        <img src="as.jpeg" alt="ArcticBreeze Pro X Air Conditioner">
+      </div>
+      <div class="thumbnail">
+        <img src="as.jpeg" alt="Thumbnail 1" style="width:100%">
+      </div>
+      <div class="thumbnail">
+        <img src="as.jpeg" alt="Thumbnail 2" style="width:100%">
+      </div>
+    </div>
+    
+    <!-- Product Info -->
+    <section class="product-info">
+      <span class="badge">ENERGY STAR® CERTIFIED</span>
+      <h1>ArcticBreeze Pro X</h1>
+      <p class="subtitle">Inverter Split System Air Conditioner with Wi-Fi Control and Extreme Weather Performance</p>
+      <div class="ratings">
+        <div class="stars">
+          <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+        </div>
+        <span>4.9 (342 reviews)</span>
+        <a href="#reviews" class="see-all">See all</a>
+      </div>
+
+      <div class="energy-badge">
+        <div class="energy-rating">A++</div>
+        <div>
+          <div class="label">Energy Efficiency Class</div>
+          <div class="note">40% more efficient than standard models</div>
+        </div>
+      </div>
+
+      <div class="price">
+        $899.99 <span>$1,099.99</span>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-item">
+          <div class="feature-icon"><i class="fas fa-snowflake"></i></div>
+          <div>
+            <h4>24,000 BTU</h4>
+            <p>Powerful cooling</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon"><i class="fas fa-wifi"></i></div>
+          <div>
+            <h4>Wi-Fi Control</h4>
+            <p>Smartphone app</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon"><i class="fas fa-volume-mute"></i></div>
+          <div>
+            <h4>19 dB</h4>
+            <p>Ultra quiet</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon"><i class="fas fa-bolt"></i></div>
+          <div>
+            <h4>Inverter Tech</h4>
+            <p>Energy saving</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="cta-buttons">
+        <button class="btn btn-primary"><i class="fas fa-shopping-cart"></i> Add to Cart</button>
+        <button class="btn btn-outline"><i class="fas fa-calendar-alt"></i> Schedule Installation</button>
+      </div>
+
+      <div class="stock-info">
+        <div class="status"><i class="fas fa-check-circle"></i><span>In Stock</span></div>
+        <p>Free standard installation when ordered today</p>
+      </div>
+    </section>
+  </div>
+</body>
+</html>
